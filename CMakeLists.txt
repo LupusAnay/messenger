@@ -12,4 +12,4 @@ set(SOURCE_FILES_CLIENT client/main.cpp)
 add_executable(messenger_client ${SOURCE_FILES_CLIENT})
 add_executable(messenger_server ${SOURCE_FILES_SERVER})
 
-target_link_libraries(messenger_client ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+target_link_libraries(messenger_client ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY} boost_thread)
