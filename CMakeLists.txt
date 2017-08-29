@@ -7,7 +7,7 @@ find_package( Boost COMPONENTS filesystem system REQUIRED )
 include_directories(${BOOST_INCLUDE_DIRS})
 
 set(SOURCE_FILES_SERVER server/main.cpp)
-set(SOURCE_FILES_CLIENT client/main.cpp)
+set(SOURCE_FILES_CLIENT client/main.cpp client/socket.cpp client/client_hdr.h client/socket.h)
 
 add_executable(messenger_client ${SOURCE_FILES_CLIENT})
 add_executable(messenger_server ${SOURCE_FILES_SERVER})

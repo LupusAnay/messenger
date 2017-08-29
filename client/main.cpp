@@ -1,22 +1,22 @@
+//
+// Created by LupusAnay on 25.08.17.
+//
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-#include <thread>
+#include "client_hdr.h"
 
-using namespace boost::asio;
-using namespace std;
 
-typedef boost::shared_ptr<ip::tcp::socket> socket_ptr;
-
-void recv_msg(socket_ptr socket) {
+/*void recv_msg(socket_ptr socket) {
     char buf[1024];
-    size_t bytes = read(*socket, buffer(buf, 1024));
+    size_t bytes = read(*socket, buffer(buf, sizeof(buf)));
     string message(buf, bytes - 1);
-    cout << message;
+    cout << message << endl;
 }
 
 void send_msg(socket_ptr socket){
+    char buf[1024];
 }
 
 void connect_handler(const boost::system::error_code & ec, socket_ptr socket) {
@@ -37,5 +37,32 @@ int main() {
     socket_ptr sock(new ip::tcp::socket(service));
     sock->async_connect(ep, boost::bind(&connect_handler, boost::asio::placeholders::error, sock));
     service.run();
+    return 0;
+}*/
+
+void connectHandler(const boost::system::error_code & ec){
+
+}
+
+void recvHandler(){
+
+}
+
+void sendHandler(){
+
+}
+
+void read_message(char* msg){
+
+}
+
+int main(){
+    io_service service;
+
+    char recv_message[MSG_SIZE];
+    char send_message[MSG_SIZE];
+
+    ip::tcp::endpoint ep(ip::address::from_string("127.0.0.1"), 2001);
+    socket_ptr sock(new ip::tcp::socket(service));
     return 0;
 }
