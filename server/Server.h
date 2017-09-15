@@ -22,6 +22,7 @@ class Server {
 public:
     Connection *getConnectionByID(string username);
     explicit Server(unsigned short port);
+    void destroyConnection(Connection *connect);
 
 private:
     vector<Connection *> connections;

@@ -32,30 +32,42 @@ void send_func(const socket_ptr &socket, const string &username) {
         ar & message;
 
         const size_t header = buf.size();
-        cout << "The message size is " << header << " bytes" << endl;
+        //cout << "The message size is " << header << " bytes" << endl;
         vector<const_buffer> buffers;
         buffers.push_back(buffer(&header, sizeof(header)));
         buffers.push_back(buf.data());
-
-        write(*socket, buffers);
+        try {
+            write(*socket, buffers);
+        }
+        catch (boost::system::system_error&) {
+            cerr << "Server has closed connections" << endl;
+            break;
+        }
     }
 }
 
 void read_func(const socket_ptr &socket) {
     while(socket->is_open()) {
         size_t header;
-        read(*socket, buffer(&header, sizeof(header)));
 
-        boost::asio::streambuf buf;
-        const size_t rc = read(*socket, buf.prepare(header));
-        buf.commit(header);
+        try {
+            read(*socket, buffer(&header, sizeof(header)));
 
-        istream is(&buf);
-        boost::archive::text_iarchive ar(is);
-        ChatMessage msg;
-        ar & msg;
-        cout << "Message from: " << msg.source << endl;
-        cout << "Text: " << msg.text << endl;
+            boost::asio::streambuf buf;
+            read(*socket, buf.prepare(header));
+            buf.commit(header);
+
+            istream is(&buf);
+            boost::archive::text_iarchive ar(is);
+            ChatMessage msg;
+            ar & msg;
+            cout << "Message from: " << msg.source << endl;
+            cout << "Text: " << msg.text << endl;
+        }
+        catch (boost::system::system_error&) {
+            cerr << "Server has closed connections" << endl;
+            break;
+        }
     }
 }
 

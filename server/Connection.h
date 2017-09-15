@@ -24,6 +24,7 @@ public:
     Connection(socket_ptr sock, Server *serv);
     string getUsername();
     void sendMessage(ChatMessage message);
+    ~Connection();
 
 private:
     Server *server;
